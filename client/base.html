@@ -1,0 +1,97 @@
+<head>
+  <title>gilgichat 2.0</title>
+</head>
+<body>
+  {{> navbar}}
+  <div id="wrap">
+    <div class="container">
+      {{> content}}
+    </div>
+  </div>
+  {{> footer}}
+</body>
+
+<template name="navbar">
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="#">gilgichat</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="nav-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+          {{> user_info}}
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+</div>
+</template>
+
+<template name="user_info">
+<ul class="nav pull-right">
+  {{#if currentUser}}
+  {{> user_loggedin}}
+  {{else}}
+  {{> user_loggedout}}
+  {{/if}}
+</ul>
+</template>
+
+<template name="user_loggedin">
+{{#if loggingIn}}
+<li class="pull-right"><a>Logging in...</a></li>
+{{else}}
+<li class="dropdown pull-right">
+  <a class="dropdown-toggle" data-toggle="dropdown">{{currentUser.profile.name}} <b class="caret"></b></a>
+  <ul class="dropdown-menu">
+    <li><a>Change Password</a></li>
+    <li><a>Switch User</a></li>
+    <li class="divider"></li>
+    <li><a id="logout">Logout</a></li>
+  </ul>
+</li>
+{{/if}}
+</template>
+
+<template name="user_loggedout">
+<li><a id="login">Login with Google</a></li>
+</template>
+
+<template name="content">
+<div class="row">
+  <div class="span3">
+    {{> room_list}}
+  </div>
+  <div class="span9">
+    {{> chat}}
+  </div>
+</div>
+</template>
+
+<template name="footer">
+<div id="footer">
+  <div class="container">
+    <p class="muted credit">Designed by <a href="http://sclabs.gilgi.org/">sclabs</a>, built with <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>, powered by <a href="http://www.meteor.com/">Meteor</a>, and hosted by <a href="https://www.openshift.com/">OpenShift</a>.</p>
+  </div>
+</div>
+</template>
