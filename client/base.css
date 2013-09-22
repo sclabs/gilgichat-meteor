@@ -3,9 +3,43 @@
 }
 
 #wrap > .container {
-padding-top: 60px;
+  padding-top: 60px;
 }
 
 a:hover {
- cursor:pointer;
+  cursor:pointer;
+}
+
+.navbar-pic {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  margin-right: 3px;
+}
+
+.userlist-pic {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  margin-right: 3px;
+}
+
+.userlist > li > p {
+  display: inline;
+}
+
+.nav-well {
+  padding: 8px 0px;
+}
+
+.nav-icon {
+  margin-top: -26px;
+}
+
+.well-chat {
+  min-height: 400px;
+}
+
+.well-chat > table > tbody > tr > td > p {
+  margin: 0px;
 }

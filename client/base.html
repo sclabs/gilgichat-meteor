@@ -2,14 +2,18 @@
   <title>gilgichat 2.0</title>
 </head>
 <body>
-  {{> navbar}}
-  <div id="wrap">
-    <div class="container">
-      {{> content}}
-    </div>
-  </div>
-  {{> footer}}
+  {{> body}}
 </body>
+
+<template name="body">
+{{> navbar}}
+<div id="wrap">
+  <div class="container">
+    {{> content}}
+  </div>
+</div>
+{{> footer}}
+</template>
 
 <template name="navbar">
 <!-- Fixed navbar -->
@@ -21,25 +25,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="#">gilgichat</a>
+      <a class="brand action-deselect">gilgichat</a>
       <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li class="nav-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
-        </ul>
           {{> user_info}}
       </div><!--/.nav-collapse -->
     </div>
@@ -62,27 +49,51 @@
 <li class="pull-right"><a>Logging in...</a></li>
 {{else}}
 <li class="dropdown pull-right">
-  <a class="dropdown-toggle" data-toggle="dropdown">{{currentUser.profile.name}} <b class="caret"></b></a>
+  <a class="dropdown-toggle" data-toggle="dropdown">
+    <img src="{{currentUser.profile.picture}}" class="navbar-pic"></img>
+    {{currentUser.profile.name}} <b class="caret"></b>
+  </a>
   <ul class="dropdown-menu">
-    <li><a id="logout">Logout</a></li>
+    <li><a class="action-logout">Logout</a></li>
   </ul>
 </li>
 {{/if}}
 </template>
 
 <template name="user_loggedout">
-<li><a id="login">Login with Google</a></li>
+<li><a class="action-login">Sign in with Google</a></li>
 </template>
 
 <template name="content">
+{{#if currentUser}}
 <div class="row">
   <div class="span3">
     {{> room_list}}
   </div>
-  <div class="span9">
+  {{#if selectedRoom}}
+  <div class="span6">
     {{> chat}}
   </div>
+  <div class="span3">
+    {{> user_list}}
+  </div>
+  {{else}}
+  <div class="span9">
+    <header class="jumbotron subhead">
+      <h1>Welcome back, {{currentUser.profile.given_name}}</h1>
+      <p>To chat, select a room from the list on the left, or <a class="action-join">join a new room</a>.</p>
+    </header>
+  </div>
+  {{/if}}
 </div>
+{{else}}
+<header class="jumbotron subhead">
+  <h1>Welcome to gilgichat</h1>
+  <p>A Meteor tech demo built by Scoot's Canoe Labs</p>
+</header>
+<p>To get started, please <a class="action-login">sign in with Google</a>.</p>
+{{/if}}
+
 </template>
 
 <template name="footer">

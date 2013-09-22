@@ -1,3 +1,23 @@
 <template name="chat">
-<p>chat</p>
+<div class="well pre-scrollable well-chat" id="scrollable-chat">
+  <table>
+    <tbody>
+      {{#each messages}}
+      {{> message}}
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<div class="controls controls-row">
+  <input type="text" placeholder="Type a message" class="span5" id="input-message">
+  <button class="btn span1 action-send">Send</button>
+</div>
+</template>
+
+<template name="message">
+<tr>
+  <td nowrap="nowrap" valign="top" align="right"><p class="{{blue}}">{{name}}:</p></td>
+  <td width="100%"><p>{{message}}</p></td>
+  <td nowrap="nowrap" valign="top"><p class="muted">{{prettifyTimestamp timestamp}}</p></td>
+</tr>
 </template>

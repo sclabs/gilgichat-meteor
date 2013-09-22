@@ -1,3 +1,19 @@
 <template name="room_list">
-<p>room list</p>
+<div class="well nav-well">
+  <ul class="nav nav-list">
+    <li class="nav-header">Your rooms</li>
+    {{#each rooms}}
+    {{> room}}
+    {{/each}}
+    <li class="divider"></li>
+    <li><a class="action-join">Join a new room</a></li>
+  </ul>
+</div>
+</template>
+
+<template name="room">
+<li class="{{active}}">
+  <a class="action-switch">{{name}} <span class="label label-warning">{{unread}}</span></a>
+  <a class="action-leave pull-right nav-icon"><i class="icon-remove"></i></a>
+</li>
 </template>

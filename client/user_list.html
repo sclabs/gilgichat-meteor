@@ -1,0 +1,21 @@
+<template name="user_list">
+<div class="well nav-well">
+  <ul class="nav nav-list userlist">
+    <li class="nav-header">Users</li>
+    {{#each users}}
+    {{> user}}
+    {{/each}}
+  </ul>
+</div>
+</template>
+
+<template name="user">
+<li>
+  <img src="{{picture}}" class="userlist-pic"></img><p class="{{blue}}">{{name}}</p>
+  {{#if online}}
+  <div class="pull-right"><span class="badge badge-success"><i class="icon-ok-sign"></i></span></div>
+  {{else}}
+  <div class="pull-right"><span class="badge badge-important"><i class="icon-remove-circle"></i></span></div>
+  {{/if}}
+</li>
+</template>
