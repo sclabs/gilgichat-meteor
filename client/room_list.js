@@ -21,6 +21,9 @@ Template.content.events({
       Meteor.call("joinRoom", roomName);
       Session.set("selected_room", roomName);
     }
+
+    // hack: resubscribe to messages
+    Meteor.subscribe("messages");
   }
 });
 
@@ -62,15 +65,10 @@ Template.room.unread = function() {
     return "";
   var count = 0;
   var timestampDoc = Timestamps.findOne({user: Meteor.userId(), room: this.name});
-  console.log("hi from room " + this.name);
-  if (timestampDoc) {
-    console.log("the doc for " + this.name + " exists");
+  if (timestampDoc)
     count = Messages.find({room: this.name, timestamp: {$gt: timestampDoc.timestamp}}).count();
-  }
-  else {
-    console.log("the doc for " + this.name + " doesnt exist");
+  else
     count = Messages.find({room: this.name}).count();
-  }
   if (count != 0)
     return count;
   else

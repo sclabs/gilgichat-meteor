@@ -7,3 +7,5 @@ preserve-inputs
 accounts-google
 bootstrap
 jquery
+standard-app-packages
+underscore
