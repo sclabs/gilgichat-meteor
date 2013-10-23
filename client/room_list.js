@@ -26,8 +26,9 @@ Template.content.events({
 
 Template.room.events({
   "click .action-switch": function() {
-    if (Session.get("selected_room"))
-      Meteor.call("updateTimestamp", Session.get("selected_room"));
+    selectedRoom = Session.get("selected_room")
+    if (selectedRoom)
+      Meteor.call("updateTimestamp", selectedRoom);
     Session.set("selected_room", this.name);
   },
 
@@ -50,18 +51,26 @@ Template.room.active = function() {
 //  }
 //});
 
-Deps.autorun(function () {
-  if (Session.get("selected_room"))
-    Meteor.call("updateTimestamp", Session.get("selected_room"));
-});
+// Deps.autorun(function () {
+  // selectedRoom = Session.get("selected_room")
+  // if (selectedRoom)
+    // Meteor.call("updateTimestamp", selectedRoom);
+// });
 
 Template.room.unread = function() {
   if (Session.equals("selected_room", this.name))
     return "";
   var count = 0;
-  var timestampDoc = Timestamps.findOne({user: Meteor.user()._id, room: this.name});
-  if (timestampDoc)
+  var timestampDoc = Timestamps.findOne({user: Meteor.userId(), room: this.name});
+  console.log("hi from room " + this.name);
+  if (timestampDoc) {
+    console.log("the doc for " + this.name + " exists");
     count = Messages.find({room: this.name, timestamp: {$gt: timestampDoc.timestamp}}).count();
+  }
+  else {
+    console.log("the doc for " + this.name + " doesnt exist");
+    count = Messages.find({room: this.name}).count();
+  }
   if (count != 0)
     return count;
   else

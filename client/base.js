@@ -22,8 +22,9 @@ Template.body.events({
   },
   
   "click .action-deselect": function() {
-    if (Session.get("selected_room"))
-      Meteor.call("updateTimestamp", Session.get("selected_room"));
+    selectedRoom = Session.get("selected_room")
+    if (selectedRoom)
+      Meteor.call("updateTimestamp", selectedRoom);
     Session.set("selected_room", null);
   }
 });

@@ -6,6 +6,7 @@ sendMessage = function() {
   message = $("#input-message").val();
   if (message) {
     Meteor.call("sendMessage", Session.get("selected_room"), message);
+    Meteor.call("updateTimestamp", Session.get("selected_room"));
     $("#input-message").val("");
   }
 };

@@ -27,8 +27,9 @@ Meteor.methods({
       roomName = Rooms.findOne(roomId);
       // we own this room, so it gets deleted forever
       Rooms.remove(roomId);
-      // remove associated messages
+      // remove associated messages and timestamps
       Messages.remove({name: roomName});
+      Timestamps.remove({room: roomName});
     } else {
       // just unsubscribe us from this room
       Rooms.update({_id: roomId}, {$pull: {subscribers: this.userId}});
@@ -54,10 +55,12 @@ Meteor.methods({
   },
   
   updateTimestamp: function(roomName) {
-    var timestampDoc = Timestamps.findOne({user: this.userId, room: roomName});
-    if (timestampDoc)
-      Timestamps.update({user: Meteor.user()._id, room: roomName}, {timestamp: new Date()});
-    else
-      Timestamps.insert({user: Meteor.user()._id, room: roomName, timestamp: new Date()});
+    if (this.userId && roomName) {
+      var timestampDoc = Timestamps.findOne({user: this.userId, room: roomName});
+      if (timestampDoc)
+        Timestamps.update({user: this.userId, room: roomName}, {$set: {timestamp: new Date()}});
+      else
+        Timestamps.insert({user: this.userId, room: roomName, timestamp: new Date()});
+    }
   }
 });
