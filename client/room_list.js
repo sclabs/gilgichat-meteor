@@ -33,6 +33,9 @@ Template.room.events({
     if (selectedRoom)
       Meteor.call("updateTimestamp", selectedRoom);
     Session.set("selected_room", this.name);
+    setTimeout(function() {
+      $("#scrollable-chat").animate({scrollTop: $("#scrollable-chat")[0].scrollHeight}, 1000);
+    }, 1000);
   },
 
   "click .action-leave": function() {

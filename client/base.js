@@ -22,7 +22,7 @@ Template.body.events({
   },
   
   "click .action-deselect": function() {
-    selectedRoom = Session.get("selected_room")
+    selectedRoom = Session.get("selected_room");
     if (selectedRoom)
       Meteor.call("updateTimestamp", selectedRoom);
     Session.set("selected_room", null);
