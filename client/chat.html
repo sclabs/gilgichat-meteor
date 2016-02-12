@@ -17,7 +17,7 @@
 <template name="message">
 <tr>
   <td nowrap="nowrap" valign="top" align="right"><p class="{{blue}}">{{name}}:</p></td>
-  <td width="100%"><p>{{message}}</p></td>
+  <td width="100%"><p>{{#markdown}}{{emojiMessage}}{{/markdown}}</p></td>
   <td nowrap="nowrap" valign="top"><p class="muted">{{prettifyTimestamp timestamp}}</p></td>
 </tr>
 </template>

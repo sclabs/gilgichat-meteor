@@ -22,13 +22,13 @@ Template.chat.events({
   }
 });
 
-//Deps.autorun(function() {
-//  Messages.find({chat: Session.get("current_chat")}).observe({
-//    added: function(document) {
-//      $("#scrollable-chat").animate({scrollTop: $("#scrollable-chat")[0].scrollHeight}, 1000);
-//    }
-//  });
-//});
+Deps.autorun(function() {
+  Messages.find({chat: Session.get("current_chat")}).observe({
+    added: function(document) {
+      $("#scrollable-chat").animate({scrollTop: $("#scrollable-chat")[0].scrollHeight}, 1000);
+    }
+  });
+});
 
 Template.chat.rendered = function() {
   $("#scrollable-chat").animate({scrollTop: $("#scrollable-chat")[0].scrollHeight}, 1000);
@@ -36,4 +36,8 @@ Template.chat.rendered = function() {
 
 Template.message.blue = function() {
   return Meteor.user()._id == this.id ? "text-info" : "muted";
+};
+
+Template.message.emojiMessage = function() {
+  return Emoji.convert(this.message);
 };

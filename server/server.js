@@ -1,14 +1,3 @@
-// helper functions
-isOnline = function(userId) {
-  var sockets = Meteor.default_server.stream_server.open_sockets;
-  return _.any(sockets,function(socket){
-    if (socket.meteor_session) {
-      return userId === socket.meteor_session.userId;
-    }
-  });
-  return false;
-};
-
 // API
 Meteor.methods({
   joinRoom: function(roomName) {
@@ -37,16 +26,18 @@ Meteor.methods({
   },
   
   getUsers: function(roomName) {
-    var users = [];
-    var room = Rooms.findOne({name: roomName});
-    if (room) {
-      for (var i = 0; i < room.subscribers.length; i++) {
-        var profile = Meteor.users.findOne(room.subscribers[i]).profile;
-        var user = {id: room.subscribers[i], name: profile.name, picture: profile.picture, online: isOnline(room.subscribers[i])};
-        users.push(user);
-      }
-    }
-    return users;
+    //var users = [];
+    //var room = Rooms.findOne({name: roomName});
+    //if (room) {
+    //  for (var i = 0; i < room.subscribers.length; i++) {
+    //    var profile = Meteor.users.findOne(room.subscribers[i]).profile;
+    //    var status = Meteor.users.findOne(room.subscribers[i]).status;
+    //    var user = {id: room.subscribers[i], name: profile.name, picture: profile.picture, online: status.online};
+    //    users.push(user);
+    //  }
+    //}
+    //return users;
+    return Meteor.users.find({'_id': {'$in': Rooms.findOne({'name': roomName}).subscribers}}).fetch()
   },
   
   sendMessage: function(roomName, message) {
