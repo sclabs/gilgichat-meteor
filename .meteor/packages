@@ -3,9 +3,12 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-preserve-inputs
 accounts-google
 bootstrap
 jquery
 standard-app-packages
 underscore
+standard-minifiers
+mizzao:user-status
+service-configuration
+chuangbo:marked

@@ -32,5 +32,5 @@ Template.user_list.users = function() {
 };
 
 Template.user.blue = function() {
-  return Meteor.user()._id == this.id ? "text-info" : "muted";
+  return Meteor.user()._id == this._id ? "text-info" : "muted";
 };
