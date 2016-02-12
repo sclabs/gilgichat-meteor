@@ -2,8 +2,10 @@
   margin: 20px 0;
 }
 
-#wrap > .container {
-  padding-top: 60px;
+@media screen and (min-width: 980px) {
+  #wrap > .container {
+    padding-top: 60px;
+  }
 }
 
 a:hover {
@@ -50,4 +52,12 @@ a:hover {
 
 img.emoji {
   height: 20px;
+}
+
+div.userlist-well {
+  margin-bottom: 80px;
+}
+
+div.controls-row {
+  margin-bottom: 20px;
 }
