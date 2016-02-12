@@ -37,7 +37,7 @@ Meteor.methods({
     //  }
     //}
     //return users;
-    return Meteor.users.find({'_id': {'$in': Rooms.findOne({'name': 'first room'}).subscribers}}).fetch()
+    return Meteor.users.find({'_id': {'$in': Rooms.findOne({'name': roomName}).subscribers}}).fetch()
   },
   
   sendMessage: function(roomName, message) {
